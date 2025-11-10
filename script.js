@@ -35,6 +35,24 @@ async function loadCatalog({ typeFilter = null, subcategoryFilter = null }) {
   const catalog = document.getElementById('catalog');
   catalog.innerHTML = '';
 
+  document.querySelectorAll('.navbar nav a').forEach((link) => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const category = e.target.getAttribute('data-category');
+      filterByCategory(category);
+    });
+  });
+
+  function filterByCategory(category) {
+    // Example: Filter based on a column name like "Category"
+    const filtered = allItems.filter(
+      (item) =>
+        item.Category && item.Category.toLowerCase() === category.toLowerCase()
+    );
+
+    displayCatalog(filtered);
+  }
+
   filtered.forEach((item) => {
     console.log('this is the image', item.Image);
     const card = document.createElement('div');
