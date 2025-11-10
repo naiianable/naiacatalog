@@ -57,3 +57,15 @@ async function loadCatalog({ typeFilter = null, subcategoryFilter = null }) {
 }
 
 loadCatalog({ typeFilter: 'Bracelet' });
+
+document.querySelectorAll('.navbar nav a').forEach((link) => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    const category = link.dataset.category;
+    document
+      .querySelectorAll('.navbar nav a')
+      .forEach((l) => l.classList.remove('active'));
+    link.classList.add('active');
+    loadCatalog({ typeFilter: category });
+  });
+});
