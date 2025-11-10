@@ -118,7 +118,6 @@
     </style>
   </head>
   <body>
-    <!-- <div id="catalog"></div> -->
     <div id="catalog" class="catalog-grid"></div>
 
     <script>
@@ -175,24 +174,16 @@
               <div class="info">
                 <h3>${item.Name || ''}</h3>
                 <p class="description">${item.Description || ''}</p>
-                <p class="price">${item.PricePc || ''} per Pc</p>
+                <p class="price">${item.CustomSellingPrice || ''} per Pc</p>
                 <small>SKU: ${item.SKU || ''}</small>
               </div>
             </div>
           `;
-          // `<img src="${item.Image || ''}" alt="${item.Name || ''}">
-          // <div class="info">
-          //   <h3>${item.Name || ''}</h3>
-          //   <p class="description">${item.Description || ''}</p>
-          //   <p class="price">Price ${item.PricePc || ''} per Pc</p>
-          //   <small>SKU: ${item.SKU || ''}</small>
-          // </div>`
 
           catalog.appendChild(card);
         });
       }
 
-      // Example: load bracelets only
       loadCatalog({ typeFilter: 'Necklace' });
     </script>
   </body>

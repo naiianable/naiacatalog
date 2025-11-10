@@ -97,6 +97,31 @@
   margin-bottom: 4px;
 }
 
+.navbar {
+  background-color: #f8f8f8;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar h1 {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.navbar nav a {
+  margin-left: 1rem;
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+}
+
+.navbar nav a:hover {
+  color: #0073e6;
+}
+
 /* Responsive scaling (max 5 columns) */
 @media (min-width: 1600px) {
   .catalog-grid {
