@@ -74,4 +74,4 @@ async function loadCatalog({ typeFilter = null, subcategoryFilter = null }) {
   });
 }
 
-loadCatalog({ typeFilter: 'Necklaces' });
+loadCatalog({ typeFilter: 'Anklet' });
