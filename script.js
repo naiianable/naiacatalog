@@ -15,7 +15,7 @@ async function loadCatalog({ typeFilter = null, subcategoryFilter = null }) {
   const items = rows.map((r) =>
     Object.fromEntries(headers.map((h, i) => [h.trim(), r[i]?.trim()]))
   );
-  console.log(items);
+
   const filtered = items.filter((item) => {
     console.log('This is the visible item', item.Visible);
     return (
@@ -54,7 +54,6 @@ async function loadCatalog({ typeFilter = null, subcategoryFilter = null }) {
   }
 
   filtered.forEach((item) => {
-    console.log('this is the image', item.Image);
     const card = document.createElement('div');
     card.className = 'card';
 
