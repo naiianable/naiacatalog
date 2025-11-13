@@ -16,8 +16,10 @@ async function loadCatalog({ typeFilter = null, subcategoryFilter = null }) {
     Object.fromEntries(headers.map((h, i) => [h.trim(), r[i]?.trim()]))
   );
 
+  console.log('This is unsorted', items);
+
   const filtered = items.filter((item) => {
-    console.log('This is the visible item', item.Visible);
+    //console.log('This is the visible item', item.Visible);
     return (
       (item.Visible?.toLowerCase() === 'true' || item.Visible === 'TRUE') &&
       (!typeFilter ||
@@ -29,8 +31,14 @@ async function loadCatalog({ typeFilter = null, subcategoryFilter = null }) {
     //     item.Subcategory.toLowerCase() ===
     //       subcategoryFilter.toLowerCase()))
   });
-  console.log(filtered);
-  console.log(typeFilter);
+  console.log(
+    'This is sorted filtered',
+    filtered.sort((a, b) => {
+      const skuA = a.SKU.slice(0, 5);
+      const skuB = b.SKU.slice(0, 5);
+      return skuA.localeCompare(skuB, undefined, { numeric: true });
+    })
+  );
 
   const catalog = document.getElementById('catalog');
   catalog.innerHTML = '';
