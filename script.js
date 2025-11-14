@@ -78,7 +78,9 @@ async function loadCatalog({ typeFilter = null, subcategoryFilter = null }) {
               <div class="info">
                 <h3>${item.Name || ''}</h3>
                 <p class="description">${item.Description || ''}</p>
-                <p class="price">${item.CustomSellingPrice || ''} per Pc</p>
+                <p class="price">${item.CustomSellingPrice || ''} per ${
+      item.SKU.slice(-2) === 'MX' ? 'Set' : 'Piece'
+    }</p>
                 <small>SKU: ${item.SKU || ''}</small>
               </div>
             </div>
