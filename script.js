@@ -73,18 +73,44 @@ async function loadCatalog({ typeFilter = null, subcategoryFilter = null }) {
     card.className = 'card';
 
     card.innerHTML = `
-            <div class="product-card">
-              <img src="${item.Image || ''}" alt="${item.Name || ''}">
-              <div class="info">
-                <h3>${item.Name || ''}</h3>
-                <p class="description">${item.Description || ''}</p>
-                <p class="price">${item.CustomSellingPrice || ''} per ${
+  <div class="product-card">
+
+    <div class="product-image-container">
+      <img class="main-img" src="${item.Image || ''}" alt="${item.Name || ''}">
+    </div>
+
+    <div class="thumbnail-row">
+      ${[item.Image, item.Image2, item.Image3, item.Image4]
+        .filter(Boolean)
+        .map((url) => `<img class="thumb" src="${url}">`)
+        .join('')}
+    </div>
+
+    <div class="info">
+      <h3>${item.Name || ''}</h3>
+      <p class="description">${item.Description || ''}</p>
+      <p class="price">${item.CustomSellingPrice || ''} per ${
       item.SKU.slice(-2) === 'MX' ? 'Set' : 'Piece'
     }</p>
-                <small>SKU: ${item.SKU || ''}</small>
-              </div>
-            </div>
-          `;
+      <small>SKU: ${item.SKU || ''}</small>
+    </div>
+
+  </div>
+`;
+
+    // card.innerHTML = `
+    //         <div class="product-card">
+    //           <img src="${item.Image || ''}" alt="${item.Name || ''}">
+    //           <div class="info">
+    //             <h3>${item.Name || ''}</h3>
+    //             <p class="description">${item.Description || ''}</p>
+    //             <p class="price">${item.CustomSellingPrice || ''} per ${
+    //   item.SKU.slice(-2) === 'MX' ? 'Set' : 'Piece'
+    // }</p>
+    //             <small>SKU: ${item.SKU || ''}</small>
+    //           </div>
+    //         </div>
+    //       `;
 
     catalog.appendChild(card);
   });
