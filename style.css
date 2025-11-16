@@ -194,14 +194,15 @@
   border-radius: 6px;
   border: 1px solid #ddd;
   cursor: pointer;
-  transition: transform 0.2s ease;
+  transition: transform 0.2s ease, border-color 0.2s ease;
 }
 
 .modal-thumb:hover {
   transform: scale(1.15);
+  border-color: #1b8a5a;
 }
 
-/* Modal Text */
+/* Modal Text Styling (matches card) */
 .modal-content h2 {
   margin: 8px 0;
   font-size: 20px;
@@ -210,7 +211,21 @@
 
 .modal-content p {
   margin: 4px 0;
+  font-size: 14px;
+  color: #666;
+}
+
+.modal-content .price {
+  font-weight: bold;
+  color: #1b8a5a;
+  margin: 8px 0;
+}
+
+.modal-content #modal-description {
+  font-size: 14px;
   color: #555;
+  line-height: 1.4;
+  margin-bottom: 12px;
 }
 
 /* Fade in animation */
