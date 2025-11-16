@@ -100,11 +100,12 @@ function openModal(item, imgSrc) {
   const images = [item.Image, item.Image2, item.Image3, item.Image4].filter(
     Boolean
   );
+
   modalThumbnails.innerHTML = images
     .map((url) => `<img class="modal-thumb" src="${url}" alt="Thumbnail">`)
     .join('');
 
-  // Click thumbnail to change main modal image
+  // Click thumbnail → update modal main image
   modalThumbnails.querySelectorAll('.modal-thumb').forEach((thumb) => {
     thumb.addEventListener('click', () => {
       modalImg.src = thumb.src;
