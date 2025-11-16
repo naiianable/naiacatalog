@@ -4,6 +4,7 @@
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 16px;
   padding: 10px;
+  box-sizing: border-box;
 }
 
 /* --- CARD WRAPPER --- */
@@ -27,7 +28,7 @@
   flex-direction: column;
 }
 
-/* --- MAIN IMAGE CONTAINER (UNIFORM SIZING) --- */
+/* --- MAIN IMAGE CONTAINER --- */
 .product-image-container {
   width: 100%;
   height: 220px;
@@ -39,7 +40,7 @@
   overflow: hidden;
 }
 
-/* Main product image */
+/* Main product image in catalog */
 .product-image-container .main-img {
   max-width: 100%;
   max-height: 100%;
@@ -49,31 +50,7 @@
 }
 
 .product-image-container .main-img:hover {
-  transform: scale(1.2);
-}
-
-/* --- THUMBNAILS --- */
-.thumbnail-row {
-  margin-top: 8px;
-  display: flex;
-  gap: 6px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.thumb {
-  width: 45px;
-  height: 45px;
-  object-fit: contain;
-  border-radius: 6px;
-  border: 1px solid #ddd;
-  background: #fff;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-}
-
-.thumb:hover {
-  transform: scale(1.15);
+  transform: scale(1.1);
 }
 
 /* --- PRODUCT INFO --- */
@@ -128,7 +105,8 @@
   font-weight: 500;
 }
 
-.navbar nav a:hover {
+.navbar nav a:hover,
+.navbar nav a.active {
   color: #0073e6;
 }
 
@@ -136,5 +114,128 @@
 @media (max-width: 600px) {
   .product-image-container {
     height: 160px;
+  }
+}
+
+/* ============================================================
+   =======================  MODAL  ============================
+   ============================================================ */
+
+/* Modal BACKDROP */
+#product-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.65);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+  backdrop-filter: blur(3px);
+  z-index: 1000;
+}
+
+/* Hidden by default */
+#product-modal.hidden {
+  display: none;
+}
+
+/* Modal CONTENT */
+.modal-content {
+  background: #fff;
+  width: 90%;
+  max-width: 650px;
+  border-radius: 12px;
+  padding: 20px;
+  position: relative;
+  text-align: center;
+  animation: fadeIn 0.2s ease-out;
+}
+
+/* Modal Close Button */
+#modal-close {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  font-size: 26px;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+  user-select: none;
+}
+
+#modal-close:hover {
+  color: #0073e6;
+}
+
+/* Modal Main Image */
+.modal-main-img {
+  width: 100%;
+  max-height: 400px;
+  object-fit: contain;
+  margin-bottom: 12px;
+}
+
+/* Modal Thumbnails */
+.modal-thumbnail-row {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.modal-thumb {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.modal-thumb:hover {
+  transform: scale(1.15);
+  border-color: #1b8a5a;
+}
+
+/* Modal Text Styling (matches card) */
+.modal-content h2 {
+  margin: 8px 0;
+  font-size: 20px;
+  color: #333;
+}
+
+.modal-content p {
+  margin: 4px 0;
+  font-size: 14px;
+  color: #666;
+}
+
+.modal-content .price {
+  font-weight: bold;
+  color: #1b8a5a;
+  margin: 8px 0;
+}
+
+.modal-content #modal-description {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.4;
+  margin-bottom: 12px;
+}
+
+/* Fade in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
 }

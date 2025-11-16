@@ -16,7 +16,30 @@
         <a href="#" data-category="set">Sets</a>
       </nav>
     </header>
+
+    <!-- Catalog Grid -->
     <div id="catalog" class="catalog-grid"></div>
+
+    <!-- ========================= -->
+    <!-- Product Modal (UPDATED)   -->
+    <!-- ========================= -->
+    <div id="product-modal" class="modal hidden">
+      <div class="modal-content">
+        <span id="modal-close" class="close">&times;</span>
+
+        <!-- Main Large Image -->
+        <img id="modal-image" class="modal-main-img" src="" alt="" />
+
+        <!-- Thumbnails Row (New) -->
+        <div id="modal-thumbnails" class="modal-thumbnail-row"></div>
+
+        <!-- Product Info -->
+        <h2 id="modal-title"></h2>
+        <p id="modal-price"></p>
+        <p id="modal-description"></p>
+      </div>
+    </div>
+
     <script src="script.js"></script>
   </body>
 </html>

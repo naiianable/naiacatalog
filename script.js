@@ -1,10 +1,27 @@
-async function loadCatalog({ typeFilter = null, subcategoryFilter = null }) {
+// =====================
+// Global Modal Elements
+// =====================
+const modal = document.getElementById('product-modal');
+const modalImg = document.getElementById('modal-image');
+const modalTitle = document.getElementById('modal-title');
+const modalPrice = document.getElementById('modal-price');
+const modalDesc = document.getElementById('modal-description');
+const modalThumbnails = document.getElementById('modal-thumbnails');
+const modalClose = document.getElementById('modal-close');
+
+// Close modal handlers
+modalClose.addEventListener('click', () => modal.classList.add('hidden'));
+modal.addEventListener('click', (e) => {
+  if (e.target === modal) modal.classList.add('hidden');
+});
+
+// =====================
+// Load Catalog Function
+// =====================
+async function loadCatalog({ typeFilter = null }) {
   const sheetUrl =
     'https://docs.google.com/spreadsheets/d/e/2PACX-1vRsbNCeoGvxNOeFByAzRCqZiW-1CAhSMYw5Rpx_FpDMkKBFhmgnqLK8G1QnaJkUQVr0VJvaTIiiHFbE/pub?gid=1529657982&single=true&output=csv';
   const res = await fetch(sheetUrl);
-  if (!res.ok) {
-    throw new Error('Network response was not ok');
-  }
   const csvText = await res.text();
 
   const rows = csvText
@@ -12,120 +29,107 @@ async function loadCatalog({ typeFilter = null, subcategoryFilter = null }) {
     .split('\n')
     .map((r) => r.split(','));
   const headers = rows.shift();
+
   const items = rows.map((r) =>
     Object.fromEntries(headers.map((h, i) => [h.trim(), r[i]?.trim()]))
-  );
-
-  console.log('This is unsorted', items);
-
-  let filtered = items.filter((item) => {
-    //console.log('This is the visible item', item.Visible);
-    return (
-      (item.Visible?.toLowerCase() === 'true' || item.Visible === 'TRUE') &&
-      (!typeFilter ||
-        (item.Style && item.Style.toLowerCase() === typeFilter.toLowerCase()))
-    );
-    //&&
-    // (!subcategoryFilter ||
-    //   (item.Subcategory &&
-    //     item.Subcategory.toLowerCase() ===
-    //       subcategoryFilter.toLowerCase()))
-  });
-
-  filtered.sort((a, b) => {
-    const skuA = a.SKU.slice(0, 5);
-    const skuB = b.SKU.slice(0, 5);
-    return skuA.localeCompare(skuB, undefined, { numeric: true });
-  });
-
-  console.log(
-    'This is sorted filtered',
-    filtered.sort((a, b) => {
-      const skuA = a.SKU.slice(0, 5);
-      const skuB = b.SKU.slice(0, 5);
-      return skuA.localeCompare(skuB, undefined, { numeric: true });
-    })
   );
 
   const catalog = document.getElementById('catalog');
   catalog.innerHTML = '';
 
-  document.querySelectorAll('.navbar nav a').forEach((link) => {
-    link.addEventListener('click', (e) => {
-      e.preventDefault();
-      const category = e.target.getAttribute('data-category');
-      filterByCategory(category);
-    });
+  const filtered = items.filter((item) => {
+    const visible =
+      item.Visible?.toLowerCase() === 'true' || item.Visible === 'TRUE';
+    const matchesCategory =
+      !typeFilter ||
+      (item.Style && item.Style.toLowerCase() === typeFilter.toLowerCase());
+    return visible && matchesCategory;
   });
-
-  function filterByCategory(category) {
-    // Example: Filter based on a column name like "Category"
-    const filtered = allItems.filter(
-      (item) =>
-        item.Category && item.Category.toLowerCase() === category.toLowerCase()
-    );
-
-    displayCatalog(filtered);
-  }
 
   filtered.forEach((item) => {
     const card = document.createElement('div');
     card.className = 'card';
 
+    const images = [item.Image, item.Image2, item.Image3, item.Image4].filter(
+      Boolean
+    );
+
     card.innerHTML = `
-  <div class="product-card">
-
-    <div class="product-image-container">
-      <img class="main-img" src="${item.Image || ''}" alt="${item.Name || ''}">
-    </div>
-
-    <div class="thumbnail-row">
-      ${[item.Image, item.Image2, item.Image3, item.Image4]
-        .filter(Boolean)
-        .map((url) => `<img class="thumb" src="${url}">`)
-        .join('')}
-    </div>
-
-    <div class="info">
-      <h3>${item.Name || ''}</h3>
-      <p class="description">${item.Description || ''}</p>
-      <p class="price">${item.CustomSellingPrice || ''} per ${
+      <div class="product-card">
+        <div class="product-image-container">
+          <img class="main-img" src="${images[0] || ''}" alt="${
+      item.Name || ''
+    }">
+        </div>
+        <div class="info">
+          <h3>${item.Name || ''}</h3>
+          <p class="description">${item.Description || ''}</p>
+          <p class="price">${item.CustomSellingPrice || ''} per ${
       item.SKU.slice(-2) === 'MX' ? 'Set' : 'Piece'
     }</p>
-      <small>SKU: ${item.SKU || ''}</small>
-    </div>
-
-  </div>
-`;
-
-    // card.innerHTML = `
-    //         <div class="product-card">
-    //           <img src="${item.Image || ''}" alt="${item.Name || ''}">
-    //           <div class="info">
-    //             <h3>${item.Name || ''}</h3>
-    //             <p class="description">${item.Description || ''}</p>
-    //             <p class="price">${item.CustomSellingPrice || ''} per ${
-    //   item.SKU.slice(-2) === 'MX' ? 'Set' : 'Piece'
-    // }</p>
-    //             <small>SKU: ${item.SKU || ''}</small>
-    //           </div>
-    //         </div>
-    //       `;
+          <small>SKU: ${item.SKU || ''}</small>
+        </div>
+      </div>
+    `;
 
     catalog.appendChild(card);
+
+    // ============
+    // Main image click → open modal
+    // ============
+    const mainImg = card.querySelector('.main-img');
+    mainImg.addEventListener('click', () => {
+      openModal(item, images[0]);
+    });
   });
 }
 
-loadCatalog({ typeFilter: 'Bracelet' });
+// =====================
+// Open Modal Function
+// =====================
+function openModal(item, imgSrc) {
+  modalImg.src = imgSrc;
+  modalTitle.textContent = item.Name || '';
+  modalPrice.textContent =
+    (item.CustomSellingPrice || '') +
+    ' per ' +
+    (item.SKU.slice(-2) === 'MX' ? 'Set' : 'Piece');
+  modalDesc.textContent = item.Description || '';
 
+  // Build modal thumbnails
+  const images = [item.Image, item.Image2, item.Image3, item.Image4].filter(
+    Boolean
+  );
+  modalThumbnails.innerHTML = images
+    .map((url) => `<img class="modal-thumb" src="${url}" alt="Thumbnail">`)
+    .join('');
+
+  // Click thumbnail to change main modal image
+  modalThumbnails.querySelectorAll('.modal-thumb').forEach((thumb) => {
+    thumb.addEventListener('click', () => {
+      modalImg.src = thumb.src;
+    });
+  });
+
+  modal.classList.remove('hidden');
+}
+
+// =======================
+// Navbar Category Filter
+// =======================
 document.querySelectorAll('.navbar nav a').forEach((link) => {
   link.addEventListener('click', (e) => {
     e.preventDefault();
     const category = link.dataset.category;
+
     document
       .querySelectorAll('.navbar nav a')
       .forEach((l) => l.classList.remove('active'));
     link.classList.add('active');
+
     loadCatalog({ typeFilter: category });
   });
 });
+
+// Initial load
+loadCatalog({ typeFilter: 'Bracelet' });
