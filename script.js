@@ -66,7 +66,8 @@ async function loadCatalog({ typeFilter = null }) {
           <p class="description">${item.Description || ''}</p>
           <p class="price">${item.CustomSellingPricePack || ''} per pack
           </p>
-          <small>Pcs per Package: ${item.PcsPackage || ''}</small>
+          <small>Pieces per Package: ${item.PcsPackage || ''}</small>
+          <small>Price per Piece: ${item.CustomSellingPricePiece || ''}</small>
           <small>SKU: ${item.SKU || ''}</small>
         </div>
       </div>
