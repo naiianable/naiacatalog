@@ -3,10 +3,11 @@
 // =====================
 const modal = document.getElementById('product-modal');
 const modalImg = document.getElementById('modal-image');
-const modalTitle = document.getElementById('modal-title');
+const modalSku = document.getElementById('modal-sku');
 const modalPrice = document.getElementById('modal-price');
 const modalDesc = document.getElementById('modal-description');
 const modalThumbnails = document.getElementById('modal-thumbnails');
+const modalPricePc = document.getElementById('modal-price-pc');
 const modalClose = document.getElementById('modal-close');
 
 // Close modal handlers
@@ -90,8 +91,9 @@ async function loadCatalog({ typeFilter = null }) {
 // =====================
 function openModal(item, imgSrc) {
   modalImg.src = imgSrc;
-  modalTitle.textContent = item.SKU || '';
+  modalSku.textContent = item.SKU || '';
   modalPrice.textContent = `${item.CustomSellingPricePack} per Pack`;
+  modalPricePc.textContent = item.CustomSellingPricePiece || '';
   modalDesc.textContent = item.Description || '';
 
   // Build modal thumbnails
