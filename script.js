@@ -90,10 +90,8 @@ async function loadCatalog({ typeFilter = null }) {
 // =====================
 function openModal(item, imgSrc) {
   modalImg.src = imgSrc;
-  modalTitle.textContent = item.Name || '';
-  modalPrice.textContent = `<div>${item.CustomSellingPricePack} per Pack</div>`;
-  // (item.CustomSellingPricePack || '') +
-  // ' per Pack'
+  modalTitle.textContent = item.SKU || '';
+  modalPrice.textContent = `${item.CustomSellingPricePack} per Pack`;
   modalDesc.textContent = item.Description || '';
 
   // Build modal thumbnails
