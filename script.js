@@ -93,8 +93,8 @@ function openModal(item, imgSrc) {
   modalImg.src = imgSrc;
   modalSku.textContent = item.SKU || '';
   modalPrice.textContent = `${item.CustomSellingPricePack} per Pack`;
-  modalPricePc.textContent = item.CustomSellingPricePiece || '';
-  modalDesc.textContent = item.Description || '';
+  modalPricePc.textContent = `${item.CustomSellingPricePiece || ''} per Piece`;
+  modalDesc.textContent = `SKU: ${item.Description || ''}`;
 
   // Build modal thumbnails
   const images = [item.Image, item.Image2, item.Image3, item.Image4].filter(

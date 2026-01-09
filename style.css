@@ -215,7 +215,13 @@
   color: #666;
 }
 
-.modal-content .modal-price {
+.modal-content #modal-price-pc {
+  font-weight: bold;
+  color: #1b8a5a;
+  margin: 8px 0;
+}
+
+.modal-content #modal-price {
   font-weight: bold;
   color: #1b8a5a;
   margin: 8px 0;
@@ -226,6 +232,13 @@
   color: #555;
   line-height: 1.4;
   margin-bottom: 12px;
+}
+
+.modal-content #modal-sku {
+  margin: 4px 0;
+  font-weight: bold;
+  font-size: 14px;
+  color: #666;
 }
 
 /* Fade in animation */
