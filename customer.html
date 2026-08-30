@@ -1,13 +1,16 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Jewelry Catalog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Naia Imports - Product Catalog</title>
     <link rel="stylesheet" href="style.css" />
   </head>
+
   <body>
     <header class="navbar">
       <h1>Naia Imports</h1>
+
       <nav>
         <a href="#" data-category="bracelet">Bracelets</a>
         <a href="#" data-category="necklace">Necklaces</a>
@@ -17,30 +20,29 @@
       </nav>
     </header>
 
-    <!-- Catalog Grid -->
+    <!-- Customer Catalog -->
     <div id="catalog" class="catalog-grid"></div>
 
-    <!-- ========================= -->
-    <!-- Product Modal (UPDATED)   -->
-    <!-- ========================= -->
+    <!-- Product Image Modal -->
     <div id="product-modal" class="modal hidden">
       <div class="modal-content">
         <span id="modal-close" class="close">&times;</span>
 
-        <!-- Main Large Image -->
         <img id="modal-image" class="modal-main-img" src="" alt="" />
 
-        <!-- Thumbnails Row (New) -->
         <div id="modal-thumbnails" class="modal-thumbnail-row"></div>
 
-        <!-- Product Info -->
-        <h2 id="modal-description"></h2>
-        <p id="modal-price"></p>
-        <p id="modal-price-pc"></p>
-        <p id="modal-sku"></p>
+        <h2 id="modal-title"></h2>
+
+        <p id="modal-description"></p>
+
+        <p>
+          <strong>SKU:</strong>
+          <span id="modal-sku"></span>
+        </p>
       </div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="customer.js"></script>
   </body>
 </html>

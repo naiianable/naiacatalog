@@ -3,10 +3,11 @@
 // =====================
 const modal = document.getElementById('product-modal');
 const modalImg = document.getElementById('modal-image');
-const modalTitle = document.getElementById('modal-title');
+const modalSku = document.getElementById('modal-sku');
 const modalPrice = document.getElementById('modal-price');
 const modalDesc = document.getElementById('modal-description');
 const modalThumbnails = document.getElementById('modal-thumbnails');
+const modalPricePc = document.getElementById('modal-price-pc');
 const modalClose = document.getElementById('modal-close');
 
 // Close modal handlers
@@ -31,8 +32,11 @@ async function loadCatalog({ typeFilter = null }) {
   const headers = rows.shift();
 
   const items = rows.map((r) =>
-    Object.fromEntries(headers.map((h, i) => [h.trim(), r[i]?.trim()]))
+    Object.fromEntries(headers.map((h, i) => [h.trim(), r[i]?.trim()])),
   );
+
+  console.log(headers);
+  console.log(items[0]);
 
   const catalog = document.getElementById('catalog');
   catalog.innerHTML = '';
@@ -51,15 +55,15 @@ async function loadCatalog({ typeFilter = null }) {
     card.className = 'card';
 
     const images = [item.Image, item.Image2, item.Image3, item.Image4].filter(
-      Boolean
+      Boolean,
     );
 
     card.innerHTML = `
       <div class="product-card">
         <div class="product-image-container">
           <img class="main-img" src="${images[0] || ''}" alt="${
-      item.Name || ''
-    }">
+            item.Name || ''
+          }">
         </div>
         <div class="info">
           <h3>${item.Name || ''}</h3>
@@ -90,16 +94,14 @@ async function loadCatalog({ typeFilter = null }) {
 // =====================
 function openModal(item, imgSrc) {
   modalImg.src = imgSrc;
-  modalTitle.textContent = item.Name || '';
-  modalPrice.textContent =
-    (item.CustomSellingPrice || '') +
-    ' per ' +
-    (item.SKU.slice(-2) === 'MX' ? 'Set' : 'Piece');
   modalDesc.textContent = item.Description || '';
+  modalPrice.textContent = `${item.CustomSellingPricePack} per Pack`;
+  modalPricePc.textContent = `${item.CustomSellingPricePiece || ''} per Piece`;
+  modalSku.textContent = `SKU: ${item.SKU || ''}`;
 
   // Build modal thumbnails
   const images = [item.Image, item.Image2, item.Image3, item.Image4].filter(
-    Boolean
+    Boolean,
   );
 
   modalThumbnails.innerHTML = images
