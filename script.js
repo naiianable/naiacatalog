@@ -32,8 +32,11 @@ async function loadCatalog({ typeFilter = null }) {
   const headers = rows.shift();
 
   const items = rows.map((r) =>
-    Object.fromEntries(headers.map((h, i) => [h.trim(), r[i]?.trim()]))
+    Object.fromEntries(headers.map((h, i) => [h.trim(), r[i]?.trim()])),
   );
+
+  console.log(headers);
+  console.log(items[0]);
 
   const catalog = document.getElementById('catalog');
   catalog.innerHTML = '';
@@ -52,15 +55,15 @@ async function loadCatalog({ typeFilter = null }) {
     card.className = 'card';
 
     const images = [item.Image, item.Image2, item.Image3, item.Image4].filter(
-      Boolean
+      Boolean,
     );
 
     card.innerHTML = `
       <div class="product-card">
         <div class="product-image-container">
           <img class="main-img" src="${images[0] || ''}" alt="${
-      item.Name || ''
-    }">
+            item.Name || ''
+          }">
         </div>
         <div class="info">
           <h3>${item.Name || ''}</h3>
@@ -98,7 +101,7 @@ function openModal(item, imgSrc) {
 
   // Build modal thumbnails
   const images = [item.Image, item.Image2, item.Image3, item.Image4].filter(
-    Boolean
+    Boolean,
   );
 
   modalThumbnails.innerHTML = images

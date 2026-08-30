@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Naia Imports - Product Catalog</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <header class="navbar">
+      <h1>Naia Imports</h1>
+
+      <nav>
+        <a href="#" data-category="bracelet">Bracelets</a>
+        <a href="#" data-category="necklace">Necklaces</a>
+        <a href="#" data-category="anklet">Anklets</a>
+        <a href="#" data-category="earring">Earrings</a>
+        <a href="#" data-category="set">Sets</a>
+      </nav>
+    </header>
+
+    <!-- Customer Catalog -->
+    <div id="catalog" class="catalog-grid"></div>
+
+    <!-- Product Image Modal -->
+    <div id="product-modal" class="modal hidden">
+      <div class="modal-content">
+        <span id="modal-close" class="close">&times;</span>
+
+        <img id="modal-image" class="modal-main-img" src="" alt="" />
+
+        <div id="modal-thumbnails" class="modal-thumbnail-row"></div>
+
+        <h2 id="modal-title"></h2>
+
+        <p id="modal-description"></p>
+
+        <p>
+          <strong>SKU:</strong>
+          <span id="modal-sku"></span>
+        </p>
+      </div>
+    </div>
+
+    <script src="customer.js"></script>
+  </body>
+</html>
