@@ -93,9 +93,10 @@ async function loadCatalog({ typeFilter = null }) {
               ${item.Description || ''}
             </p>
 
-            <small>
-              SKU: ${item.SKU || ''}
-            </small>
+            // UNCOMMENT TO SHOW SKU IN CUSTOMER VIEW
+            // <small>
+            //   SKU: ${item.SKU || ''}
+            // </small>
 
           </div>
 
