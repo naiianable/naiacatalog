@@ -72,6 +72,11 @@ async function loadCatalog({ typeFilter = null }) {
         Boolean,
       );
 
+      //ADD TO CARD INNER HTML TO DISPLAY SKU
+      // <small>
+      //         SKU: ${item.SKU || ''}
+      //       </small>
+
       card.innerHTML = `
         <div class="product-card">
 
