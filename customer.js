@@ -98,10 +98,6 @@ async function loadCatalog({ typeFilter = null }) {
               ${item.Description || ''}
             </p>
 
-            <small>
-              SKU: ${item.SKU || ''}
-            </small>
-
           </div>
 
         </div>
