@@ -72,6 +72,11 @@ async function loadCatalog({ typeFilter = null }) {
         Boolean,
       );
 
+      // ADD INTO CARD INNER HTML TO SHOW SKU
+      //       <small>
+      //         SKU: ${item.SKU || ''}
+      //       </small>
+
       card.innerHTML = `
         <div class="product-card">
 
@@ -92,11 +97,6 @@ async function loadCatalog({ typeFilter = null }) {
             <p class="description">
               ${item.Description || ''}
             </p>
-
-            // UNCOMMENT TO SHOW SKU IN CUSTOMER VIEW
-            // <small>
-            //   SKU: ${item.SKU || ''}
-            // </small>
 
           </div>
 
